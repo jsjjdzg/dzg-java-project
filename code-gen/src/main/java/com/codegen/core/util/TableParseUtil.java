@@ -15,7 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author xuxueli 2018-05-02 21:10:45
+ * 数据表解析方法类
+ *
+ * @author dingzhenggang
  */
 public class TableParseUtil {
 

@@ -1,9 +1,34 @@
 server:
   port: 8088
   servlet:
-    context-path: /code-gen
+    context-path: /
 
 spring:
+  freemarker:
+    cache: false
+    charset: UTF-8
+    content-type: text/html
+    suffix: .ftl
+    check-template-location: true
+    template-loader-path: classpath:/templates
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
+    request-context-attribute: request
+    settings:
+      default_encoding: UTF-8
+      output_encoding: UTF-8
+      url_escaping_charset: UTF-8
+      tag_syntax: auto_detect
+      locale: zh_CN
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      date_format: yyyy-MM-dd
+      time_format: HH:mm:ss
+      number_format: 0.##########
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+      static-locations: classpath:/static/
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.6.4:3316/devops_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -18,14 +43,6 @@ spring:
       maximum-pool-size: 15
       auto-commit: true
       idle-timeout: 30000
-  mvc:
-    static-path-pattern: /static/**
-  resources:
-    static-locations: classpath:/static/
-  freemarker:
-    templateLoaderPath: classpath:/templates/
-    suffix: .ftl
-    charset: UTF-8
-    request-context-attribute: request
-    settings:
-      number_format: 0.##########
+
+
+

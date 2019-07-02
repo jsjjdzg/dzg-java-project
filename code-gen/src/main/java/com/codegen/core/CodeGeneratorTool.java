@@ -7,20 +7,20 @@ import com.codegen.core.util.TableParseUtil;
 import java.io.IOException;
 
 /**
- * code generate tool
+ * 根据sql语句生成类信息类
  *
- * @author xuxueli 2018-04-25 16:29:58
+ * @author dingzhenggang
  */
 public class CodeGeneratorTool {
 
-	/**
-	 * process Table Into ClassInfo
-	 *
-	 * @param tableSql
-	 * @return
-	 */
-	public static ClassInfo processTableIntoClassInfo(String tableSql) throws IOException {
-		return TableParseUtil.processTableIntoClassInfo(tableSql);
-	}
+  /**
+   * process Table Into ClassInfo
+   *
+   * @param tableSql
+   * @return
+   */
+  public static ClassInfo processTableIntoClassInfo(String tableSql) throws IOException {
+    return TableParseUtil.processTableIntoClassInfo(tableSql);
+  }
 
 }

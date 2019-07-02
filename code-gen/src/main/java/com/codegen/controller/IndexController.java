@@ -2,7 +2,8 @@ package com.codegen.controller;
 
 import com.codegen.core.CodeGeneratorTool;
 import com.codegen.core.model.ClassInfo;
-import com.codegen.model.ReturnT;
+import com.codegen.core.util.ResultUtil;
+import com.codegen.model.Result;
 import com.codegen.util.CommonPropertyUtil;
 import com.codegen.util.FreemarkerTool;
 import freemarker.template.TemplateException;
@@ -45,12 +46,12 @@ public class IndexController {
    */
   @RequestMapping("/codeGenerate")
   @ResponseBody
-  public ReturnT<Map<String, String>> codeGenerate(String tableSql) {
+  public Result<Map<String, String>> codeGenerate(String tableSql) {
 
     try {
 
-      if (StringUtils.isBlank(tableSql)) {
-        return new ReturnT<Map<String, String>>(ReturnT.FAIL_CODE, "表结构信息不可为空");
+      if (StringUtils.isEmpty(tableSql)) {
+        return new ResultUtil<Map<String, String>>().setErrorMsg("表结构信息不可为空");
       }
 
       // parse table
@@ -65,15 +66,15 @@ public class IndexController {
       // result
       Map<String, String> result = new HashMap<String, String>();
 
-      result.put("controller_code", freemarkerTool.processString("xxl-code-generator/controller.ftl", params));
-      result.put("service_code", freemarkerTool.processString("xxl-code-generator/service.ftl", params));
-      result.put("service_impl_code", freemarkerTool.processString("xxl-code-generator/service_impl.ftl", params));
+      result.put("controller_code", freemarkerTool.processString("code-format/controller.ftl", params));
+      result.put("service_code", freemarkerTool.processString("code-format/service.ftl", params));
+      result.put("service_impl_code", freemarkerTool.processString("code-format/service_impl.ftl", params));
 
-      result.put("dao_code", freemarkerTool.processString("xxl-code-generator/dao.ftl", params));
-      result.put("mybatis_code", freemarkerTool.processString("xxl-code-generator/mybatis.ftl", params));
-      result.put("model_code", freemarkerTool.processString("xxl-code-generator/model.ftl", params));
+      result.put("dao_code", freemarkerTool.processString("code-format/dao.ftl", params));
+      result.put("mybatis_code", freemarkerTool.processString("code-format/mybatis.ftl", params));
+      result.put("model_code", freemarkerTool.processString("code-format/model.ftl", params));
 
-      result.put("page_model_code", freemarkerTool.processString("xxl-code-generator/page_model.ftl", params));
+      result.put("page_model_code", freemarkerTool.processString("code-format/page_model.ftl", params));
 
       // 计算,生成代码行数
       int lineNum = 0;
@@ -84,10 +85,10 @@ public class IndexController {
       }
       logger.info("生成代码行数：{}", lineNum);
 
-      return new ReturnT<Map<String, String>>(result);
+      return new ResultUtil<Map<String, String>>().setData(result);
     } catch (IOException | TemplateException e) {
       logger.error(e.getMessage(), e);
-      return new ReturnT<Map<String, String>>(ReturnT.FAIL_CODE, "表结构解析失败");
+      return new ResultUtil<Map<String, String>>().setErrorMsg("表结构解析失败");
     }
 
   }

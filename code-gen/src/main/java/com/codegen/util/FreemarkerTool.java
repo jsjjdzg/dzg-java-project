@@ -14,9 +14,9 @@ import java.io.StringWriter;
 import java.util.Map;
 
 /**
- * freemarker tool
+ * freemarker 模板处理类
  *
- * @author xuxueli 2018-05-02 19:56:00
+ * @author dingzhenggang
  */
 @Component
 public class FreemarkerTool {
