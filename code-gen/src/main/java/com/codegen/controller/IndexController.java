@@ -7,9 +7,8 @@ import com.codegen.model.Result;
 import com.codegen.util.CommonPropertyUtil;
 import com.codegen.util.FreemarkerTool;
 import freemarker.template.TemplateException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,8 +24,9 @@ import java.util.Map;
  * @author dingzhenggang
  */
 @Controller
+@Slf4j
 public class IndexController {
-  private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
 
   private String author = CommonPropertyUtil.getProperty("gen.author.info");
 
@@ -49,7 +49,6 @@ public class IndexController {
   public Result<Map<String, String>> codeGenerate(String tableSql) {
 
     try {
-
       if (StringUtils.isEmpty(tableSql)) {
         return new ResultUtil<Map<String, String>>().setErrorMsg("表结构信息不可为空");
       }
@@ -83,11 +82,11 @@ public class IndexController {
           lineNum += StringUtils.countMatches(item.getValue(), "\n");
         }
       }
-      logger.info("生成代码行数：{}", lineNum);
+      log.info("生成代码行数：{}", lineNum);
 
       return new ResultUtil<Map<String, String>>().setData(result);
     } catch (IOException | TemplateException e) {
-      logger.error(e.getMessage(), e);
+      log.error(e.getMessage(), e);
       return new ResultUtil<Map<String, String>>().setErrorMsg("表结构解析失败");
     }
 

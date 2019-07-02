@@ -3,8 +3,7 @@ package com.codegen.core;
 
 import com.codegen.core.model.ClassInfo;
 import com.codegen.core.util.TableParseUtil;
-
-import java.io.IOException;
+import lombok.SneakyThrows;
 
 /**
  * 根据sql语句生成类信息类
@@ -19,7 +18,8 @@ public class CodeGeneratorTool {
    * @param tableSql
    * @return
    */
-  public static ClassInfo processTableIntoClassInfo(String tableSql) throws IOException {
+  @SneakyThrows
+  public static ClassInfo processTableIntoClassInfo(String tableSql) {
     return TableParseUtil.processTableIntoClassInfo(tableSql);
   }
 
