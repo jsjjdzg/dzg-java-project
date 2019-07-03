@@ -1,12 +1,8 @@
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-
 /**
-* ${classInfo.classComment}
+* ${classInfo.classComment}MybatisDao层
 *
-* Created by xuxueli on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* @author ${authorInfo}
+* @since: V1.0 ${.now?string('yyyy-MM-dd')}
 */
 @Component
 public interface ${classInfo.className}Dao {
@@ -14,33 +10,38 @@ public interface ${classInfo.className}Dao {
     /**
     * 新增
     */
-    public int insert(@Param("${classInfo.className?uncap_first}") ${classInfo.className} ${classInfo.className?uncap_first});
+    public int insert(@Param("${classInfo.className?uncap_first}Entity") ${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
     * 删除
     */
-    public int delete(@Param("id") int id);
+    public int delete(@Param("${classInfo.className?uncap_first}Entity") ${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
     * 更新
     */
-    public int update(@Param("${classInfo.className?uncap_first}") ${classInfo.className} ${classInfo.className?uncap_first});
+    public int update(@Param("${classInfo.className?uncap_first}Entity") ${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
-    * Load查询
+    * 单个查询
     */
-    public ${classInfo.className} load(@Param("id") int id);
+    public ${classInfo.className}Entity get(@Param("${classInfo.className?uncap_first}Entity") ${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
-    * 分页查询Data
+    * 不分页查询数据
     */
-	public List<${classInfo.className}> pageList(@Param("offset") int offset,
-                                                 @Param("pagesize") int pagesize);
+    public List<${classInfo.className}Entity> getList(@Param("${classInfo.className?uncap_first}Entity") ${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
-    * 分页查询Count
+    * 分页查询数据
     */
-    public int pageListCount(@Param("offset") int offset,
-                             @Param("pagesize") int pagesize);
+	public List<${classInfo.className}Entity> pageList(@Param("${classInfo.className?uncap_first}Entity") ${classInfo.className}Entity ${classInfo.className?uncap_first}Entity,
+                             PagerModel pageModel);
+
+    /**
+    * 分页查询数量
+    */
+    public int pageListCount(@Param("${classInfo.className?uncap_first}Entity") ${classInfo.className}Entity ${classInfo.className?uncap_first}Entity,
+                             PagerModel pageModel);
 
 }

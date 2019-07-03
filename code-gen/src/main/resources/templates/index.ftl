@@ -27,29 +27,76 @@
 
                     <#-- left -->
                     <div class2="col-md-9">
-
-                        <#-- 表结构 -->
-                        <div class="box box-default">
+                        <#-- 生成方式选择 -->
+                        <div class="box box-default" id="CodeGenSelect">
+                            <div class="box-header with-border">
+                                <button type="button" class="btn btn-info btn-default pull-left"
+                                        id="selectMybatisCodeGen">
+                                    代码生成Mybatis代码
+                                </button>
+                                <div class="box-body "></div>
+                                <button type="button" class="btn btn-info btn-default pull-left"
+                                        id="selectMybatisPlusCodeGen">
+                                    代码生成MybatisPlus代码
+                                </button>
+                            </div>
+                        </div>
+                        <#-- 各种式样 -->
+                        <#-- Mybatis基于生成代码生成Java代码  -->
+                        <div class="box box-default" id="mybatisCodeGen" style="display:none;">
                             <div class="box-header with-border">
                                 <h4 class="pull-left">表结构信息</h4>
-                                <button type="button" class="btn btn-info btn-lg pull-right" id="codeGenerate">生成代码
-                                </button>
                             </div>
                             <div class="box-body">
                                 <ul class="chart-legend clearfix">
                                     <li>
                                         <small class="text-muted">
-                                            <textarea id="tableSql" placeholder="请输入表结构信息...">
-CREATE TABLE `dzg` (
+                                            <textarea id="mybatisTableSql" placeholder="请输入表结构信息...">
+CREATE TABLE `bocloud` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(255) NOT NULL COMMENT '名称',
   `time` datetime NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='DZG信息'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='bocloud'
                                             </textarea>
                                         </small>
                                     </li>
                                 </ul>
+                            </div>
+                            <div class="box-header with-border">
+                                <button type="button" class="btn btn-info btn-default pull-left"
+                                        id="mybatisCodeGenerate">
+                                    生成Mybatis代码
+                                </button>
+                            </div>
+                        </div>
+
+                        <#-- MybatisPlus基于生成代码生成Java代码  -->
+                        <div class="box box-default" id="mybatisPlusCodeGen" style="display:none;">
+                            <div class="box-header with-border">
+                                <h4 class="pull-left">表结构信息</h4>
+                            </div>
+                            <div class="box-body">
+                                <ul class="chart-legend clearfix">
+                                    <li>
+                                        <small class="text-muted">
+                                            <textarea id="mybatisPlusTableSql" placeholder="请输入表结构信息...">
+CREATE TABLE `bocloud` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `time` datetime NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='bocloud'
+                                            </textarea>
+                                        </small>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box-header with-border">
+                                <button type="button" class="btn btn-info btn-default pull-left"
+                                        id="mybatisPlusCodeGenerate">
+                                    生成MybatisPlus代码
+                                </button>
                             </div>
                         </div>
 
@@ -60,7 +107,8 @@ CREATE TABLE `dzg` (
                             <ul class="nav nav-tabs pull-right">
                                 <li class="pull-left header">代码区</li>
 
-                                <li><a href="#page_model" data-toggle="tab">PageModel</a></li>
+                                <!--<li><a href="#grid_bean" data-toggle="tab">GirdBean</a></li>
+                                <li><a href="#page_model" data-toggle="tab">PageModel</a></li> -->
                                 <li><a href="#mybatis" data-toggle="tab">Mybatis</a></li>
                                 <li><a href="#controller" data-toggle="tab">Controller</a></li>
                                 <li><a href="#service_impl" data-toggle="tab">ServiceImpl</a></li>
@@ -103,6 +151,11 @@ CREATE TABLE `dzg` (
                                 <div class="chart tab-pane active" id="page_model">
                                     <div class="box-body">
                                         PageModel：<textarea id="page_model_ide"></textarea>
+                                    </div>
+                                </div>
+                                <div class="chart tab-pane active" id="grid_bean">
+                                    <div class="box-body">
+                                        GridBean：<textarea id="grid_bean_ide"></textarea>
                                     </div>
                                 </div>
                             </div>

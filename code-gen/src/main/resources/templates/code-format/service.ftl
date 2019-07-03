@@ -1,35 +1,39 @@
-import java.util.Map;
-
 /**
-* ${classInfo.classComment}
+* ${classInfo.classComment}逻辑处理Service
 *
-* Created by xuxueli on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* @author ${authorInfo}
+* @since: V1.0 ${.now?string('yyyy-MM-dd')}
 */
 public interface ${classInfo.className}Service {
 
     /**
     * 新增
     */
-    public ReturnT<String> insert(${classInfo.className} ${classInfo.className?uncap_first});
+    public Result insert(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
     * 删除
     */
-    public ReturnT<String> delete(int id);
+    public Result delete(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
     * 更新
     */
-    public ReturnT<String> update(${classInfo.className} ${classInfo.className?uncap_first});
+    public Result update(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
-    * Load查询
+    * 查询
     */
-    public ${classInfo.className} load(int id);
+    public ${classInfo.className}Entity get(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
+
+    /**
+    * 查询多个
+    */
+    public List<${classInfo.className}Entity> getList(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
     /**
     * 分页查询
     */
-    public Map<String,Object> pageList(int offset, int pagesize);
+    public GridBean pageList(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity);
 
 }

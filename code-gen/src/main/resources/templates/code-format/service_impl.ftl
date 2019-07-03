@@ -1,78 +1,77 @@
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
-* ${classInfo.classComment}
+* ${classInfo.classComment}逻辑处理实现类
 *
-* Created by xuxueli on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* @author ${authorInfo}
+* @since: V1.0 ${.now?string('yyyy-MM-dd')}
 */
 @Service
 public class ${classInfo.className}ServiceImpl implements ${classInfo.className}Service {
 
-	@Resource
+	@Autowired
 	private ${classInfo.className}Dao ${classInfo.className?uncap_first}Dao;
 
 	/**
     * 新增
     */
 	@Override
-	public ReturnT<String> insert(${classInfo.className} ${classInfo.className?uncap_first}) {
+	public Result insert(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity) {
 
-		// valid
-		if (${classInfo.className?uncap_first} == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "必要参数缺失");
+		if (${classInfo.className?uncap_first}Entity == null) {
+			return new ResultUtil<>().setErrorMsgAndDiyCode(
+				StatusEnum.PARAM_ERROR.getCode(), StatusEnum.PARAM_ERROR.getMessage());
         }
 
-		${classInfo.className?uncap_first}Dao.insert(${classInfo.className?uncap_first});
-        return ReturnT.SUCCESS;
+		${classInfo.className?uncap_first}Dao.insert(${classInfo.className?uncap_first}Entity);
+        return new ResultUtil<>().setSuccessMsg(StatusEnum.SUCCESS.getMessage());
 	}
 
 	/**
 	* 删除
 	*/
 	@Override
-	public ReturnT<String> delete(int id) {
-		int ret = ${classInfo.className?uncap_first}Dao.delete(id);
-		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
+	public Result delete(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity) {
+		int ret = ${classInfo.className?uncap_first}Dao.delete(${classInfo.className?uncap_first}Entity);
+		return ret > 0 ? new ResultUtil<>().setSuccessMsg(StatusEnum.SUCCESS.getMessage())
+				:new ResultUtil<>().setErrorMsg(StatusEnum.FAIL.getMessage());
 	}
 
 	/**
 	* 更新
 	*/
 	@Override
-	public ReturnT<String> update(${classInfo.className} ${classInfo.className?uncap_first}) {
+	public Result update(${classInfo.className} ${classInfo.className?uncap_first}) {
 		int ret = ${classInfo.className?uncap_first}Dao.update(${classInfo.className?uncap_first});
-		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
+		return ret > 0 ? new ResultUtil<>().setSuccessMsg(StatusEnum.SUCCESS.getMessage())
+				:new ResultUtil<>().setErrorMsg(StatusEnum.FAIL.getMessage());
 	}
 
 	/**
-	* Load查询
+	* 查询
 	*/
 	@Override
-	public ${classInfo.className} load(int id) {
-		return ${classInfo.className?uncap_first}Dao.load(id);
+	public Result get(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity) {
+		return new ResultUtil<>().setData(${classInfo.className?uncap_first}Dao.get(${classInfo.className?uncap_first}Entity));
+	}
+
+	/**
+	* 查询多个
+	*/
+	@Override
+	public Result getList(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity) {
+		return new ResultUtil<>().setData(${classInfo.className?uncap_first}Dao.getList(${classInfo.className?uncap_first}Entity));
 	}
 
 	/**
 	* 分页查询
 	*/
 	@Override
-	public Map<String,Object> pageList(int offset, int pagesize) {
+	public GridBean pageList(${classInfo.className}Entity ${classInfo.className?uncap_first}Entity) {
 
-		List<${classInfo.className}> pageList = ${classInfo.className?uncap_first}Dao.pageList(offset, pagesize);
-		int totalCount = ${classInfo.className?uncap_first}Dao.pageListCount(offset, pagesize);
+		List<${classInfo.className}> pageList = ${classInfo.className?uncap_first}Dao.pageList(${classInfo.className?uncap_first}Entity);
+		int totalCount = ${classInfo.className?uncap_first}Dao.pageListCount(${classInfo.className?uncap_first}Entity);
 
-		// result
-		Map<String, Object> result = new HashMap<String, Object>();
-		maps.put("pageList", pageList);
-		maps.put("totalCount", totalCount);
-
-		return result;
+		return new GridBean(${classInfo.className?uncap_first}Entity.getPage(),
+			Math.round(totalCount / ${classInfo.className?uncap_first}Entity.getRows() ) + 1 , totalCount, pageList);
 	}
 
 }

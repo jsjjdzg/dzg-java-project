@@ -9,11 +9,11 @@ import com.codegen.util.FreemarkerTool;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +27,10 @@ import java.util.Map;
 @Slf4j
 public class IndexController {
 
-
   private String author = CommonPropertyUtil.getProperty("gen.author.info");
+  private String basePathInfo = CommonPropertyUtil.getProperty("base.path.info");
 
-  @Resource
+  @Autowired
   private FreemarkerTool freemarkerTool;
 
   @RequestMapping("/")
@@ -61,6 +61,7 @@ public class IndexController {
       params.put("classInfo", classInfo);
 
       params.put("authorInfo", author);
+      params.put("basePathInfo", basePathInfo);
 
       // result
       Map<String, String> result = new HashMap<String, String>();
@@ -74,6 +75,7 @@ public class IndexController {
       result.put("model_code", freemarkerTool.processString("code-format/model.ftl", params));
 
       result.put("page_model_code", freemarkerTool.processString("code-format/page_model.ftl", params));
+      result.put("grid_bean_code", freemarkerTool.processString("code-format/grid_bean.ftl", params));
 
       // 计算,生成代码行数
       int lineNum = 0;

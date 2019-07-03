@@ -5,8 +5,8 @@ $(function () {
      */
     var tableSqlIDE;
 
-    function initTableSql() {
-        tableSqlIDE = CodeMirror.fromTextArea(document.getElementById("tableSql"), {
+    function initTableSql(sqlInfo) {
+        tableSqlIDE = CodeMirror.fromTextArea(document.getElementById(sqlInfo), {
             lineNumbers: true,
             matchBrackets: true,
             mode: "text/x-sql",
@@ -17,8 +17,6 @@ $(function () {
         });
         tableSqlIDE.setSize('auto', 'auto');
     }
-
-    initTableSql();
 
     /**
      * 初始化 code area
@@ -31,6 +29,7 @@ $(function () {
     var mybatis_ide;
     var model_ide;
     var page_model_ide;
+    var grid_bean_ide;
 
     function initCodeArea() {
 
@@ -113,14 +112,35 @@ $(function () {
             readOnly: true
         });
         page_model_ide.setSize('auto', 'auto');
+
+        // grid_bean_ide
+        grid_bean_ide = CodeMirror.fromTextArea(document.getElementById("grid_bean_ide"), {
+            lineNumbers: true,
+            matchBrackets: true,
+            mode: "text/x-java",
+            lineWrapping: true,
+            readOnly: true
+        });
+        grid_bean_ide.setSize('auto', 'auto');
     }
 
     initCodeArea();
 
     /**
+     * 选择生成页面
+     */
+    $('#selectMybatisCodeGen').click(function () {
+        $('#mybatisCodeGen').show();
+        initTableSql("mybatisTableSql");
+        $('#mybatisPlusCodeGen').hide();
+        $('#mybatisLinkGen').hide();
+        $('#mybatisPlusLinkGen').hide();
+    });
+
+    /**
      * 生成代码
      */
-    $('#codeGenerate').click(function () {
+    $('#mybatisCodeGenerate').click(function () {
 
         var tableSql = tableSqlIDE.getValue();
 
@@ -153,6 +173,9 @@ $(function () {
 
                     page_model_ide.setValue(data.data.page_model_code);
                     page_model_ide.setSize('auto', 'auto');
+
+                    grid_bean_ide.setValue(data.data.grid_bean_code);
+                    grid_bean_ide.setSize('auto', 'auto');
                 } else {
                     layer.open({
                         icon: '2',
